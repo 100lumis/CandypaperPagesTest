@@ -1,0 +1,33 @@
+etusivu missä on vaikeustasot ja asetukset
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="Candy3.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">  
+</head>
+ <body>
+
+<div class="button-container">
+  <button class="favorite styled" type="button" onclick="window.location.href='Candypaper3.index'">Helppo</button>
+  <button class="favorite styled" type="button" onclick="window.location.href='Candypaper.index'">Keskitaso</button>
+  <button class="favorite styled" type="button" onclick="window.location.href='Candypaper.index'">Vaikea</button>
+  <button class="favorite styled" type="button" onclick="openSettings()">Asetukset</button>
+</div>
+
+<!-- Taustahimmennys -->
+<div class="overlay" id="overlay" onclick="closeSettings()"></div>
+
+<!-- Asetukset-laatikko -->
+<div class="settings-box" id="settingsBox">
+  <span class="close-btn" onclick="closeSettings()">&times;</span>
+  <h2>Asetukset</h2>
+
+  <audio id="backgroundAudio" src="lofi.mp3" preload="auto"></audio>
+  <button id="audioControlBtn" onclick="toggleAudio()">Soita musiikki</button>
+
+  <!-- Voit lisätä tänne esim. checkboxeja, dropdown-valikkoja jne. -->
+</div>
+
+  </body>
+  </html>

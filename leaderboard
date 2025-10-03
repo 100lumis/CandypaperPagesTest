@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Candypaper</title>
+  <link rel="stylesheet" href="Candy3.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: black;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      background-image: url("sweet.png");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 0;
+    }
+
+    .rainbow-text {
+      background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+      color: transparent;
+      -webkit-background-clip: text;
+      display: inline-block;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 3em;
+    }
+
+    #gameArea {
+      background-color: white;
+      border: 5px solid #d1478e;
+      width: 450px;
+      height: 450px;
+      margin: 20px auto;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+      width: 420px;  
+      height: 420px;
+      gap: 2px;
+      box-sizing: border-box;
+    }
+
+    .candy {
+      width: 45px;
+      height: 45px;
+      border: 2px solid transparent;
+      box-sizing: border-box;
+      cursor: pointer;
+      user-select: none;
+      transition: border 0.2s ease;
+    }
+
+    .selected {
+      border: 3px solid #d1478e;
+    }
+
+    /* Leaderboard styles */
+
+  #leaderboardTable {
+  position: absolute;         /* Siirretään tarkasti */
+  top: 180px;                  /* Säädä tätä pienemmäksi siirtääksesi ylemmäs */
+  left: 5px;                 /* Säädä tätä pienemmäksi siirtääksesi enemmän vasemmalle */
+  width: 400px;
+  background: white;
+  border-collapse: collapse;
+  font-family: rockwell;
+  border: 2px solid #d1478e;
+  z-index: 1000;              /* Varmistaa että näkyy muun sisällön päällä */
+}
+
+#leaderboardTable th,
+#leaderboardTable td {
+  padding: 8px;
+  border: 1px solid #d1478e;
+  text-align: center;
+}
+
+#leaderboardTable thead {
+  background: #d1478e;
+  color: white;
+}
+
+#leaderboardTable tr.highlight {
+  background-color: #f8d7da;
+}
+	#leaderboardTitle {
+  position: absolute;
+  top: 140px;
+  left: 110px;
+  font-family: rockwell;
+  color: #000000;
+  font-size: 28px;
+  margin: 0;
+}
+  </style>
+</head>
+<body>
+  <h3 id="Candypaper" class="rainbow-text" style="font-family: rockwell">Candypaper</h3>
+
+  <!-- Poistettu pisteiden näyttö ylhäältä -->
+
+  <h2 id="movesLeft">Moves left: 40</h2>
+  <h2 id="gameOverText" style="display:none; color:red; font-family: rockwell;">Game Over!</h2>
+
+  <div id="gameArea">
+    <div id="board"></div>
+  </div>
+
+  <h2 id="leaderboardTitle">Leaderboard</h2>
+  <table id="leaderboardTable">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Pisteet</th>
+        <th>Aika (s)</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboardBody"></tbody>
+  </table>
+
+  <script>
+    const candies = ["yellow", "blue", "pink", "purple", "opgreen", "orange"];
+    const rows = 9;
+    const columns = 9;
+    let board = [];
+    let score = 0;
+    let movesLeft = 40;
+    let selectedCandy = null;
+    let playerName = "";
+    let leaderboard = [];
+    let playerEntry = null;
+    let startTime = null;
+    let gameOver = false;
+
+    window.onload = () => {
+      playerName = prompt("Anna nimesi:");
+      if (!playerName) playerName = "Anonyymi";
+
+      leaderboard = JSON.parse(localStorage.getItem("candypaperLeaderboard")) || [];
+      playerEntry = leaderboard.find(e => e.name === playerName);
+
+      if (!playerEntry) {
+        playerEntry = { name: playerName, score: 0, time: 0 };
+        leaderboard.push(playerEntry);
+        saveLeaderboard();
+      } else {
+        // Jos pelaajalla on jo aiempia pisteitä, voimme halutessa nollata pelin score
+        score = playerEntry.score || 0;
+      }
+
+      initializeBoard();
+      updateMoves();
+      updateLeaderboardUI();
+      startTime = new Date();
+    };
+
+    function initializeBoard() {
+      board = [];
+      const boardDiv = document.getElementById("board");
+      boardDiv.innerHTML = "";
+
+      for (let r = 0; r < rows; r++) {
+        board[r] = [];
+        for (let c = 0; c < columns; c++) {
+          const candyType = getRandomCandy();
+          board[r][c] = candyType;
+
+          const candyImg = document.createElement("img");
+          candyImg.src = `./images/${candyType}.jpg`;
+          candyImg.id = `${r}-${c}`;
+          candyImg.classList.add("candy");
+          candyImg.draggable = false;
+
+          candyImg.addEventListener("click", () => handleCandyClick(r, c));
+
+          boardDiv.appendChild(candyImg);
+        }
+      }
+
+      while (checkAndClearMatches()) {
+        refillBoard();
+      }
+
+      updateBoardUI();
+    }
+
+    function getRandomCandy() {
+      return candies[Math.floor(Math.random() * candies.length)];
+    }
+
+    function updateBoardUI() {
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          const candyImg = document.getElementById(`${r}-${c}`);
+          if (candyImg) {
+            candyImg.src = `./images/${board[r][c]}.jpg`;
+            candyImg.classList.remove("selected");
+          }
+        }
+      }
+      selectedCandy = null;
+    }
+
+    function updateMoves() {
+      document.getElementById("movesLeft").innerText = `Moves left: ${movesLeft}`;
+      if (movesLeft <= 0) {
+        document.getElementById("gameOverText").style.display = "block";
+        endGame();
+      } else {
+        document.getElementById("gameOverText").style.display = "none";
+      }
+    }
+
+    function handleCandyClick(r, c) {
+      if (movesLeft <= 0 || gameOver) return;
+
+      const clickedCandy = document.getElementById(`${r}-${c}`);
+
+      if (!selectedCandy) {
+        selectedCandy = { r, c };
+        clickedCandy.classList.add("selected");
+      } else {
+        if (selectedCandy.r === r && selectedCandy.c === c) {
+          clickedCandy.classList.remove("selected");
+          selectedCandy = null;
+          return;
+        }
+
+        const dr = Math.abs(selectedCandy.r - r);
+        const dc = Math.abs(selectedCandy.c - c);
+
+        if ((dr === 1 && dc === 0) || (dr === 0 && dc === 1)) {
+          if (willSwapCreateMatch(selectedCandy, { r, c })) {
+            swap(selectedCandy, { r, c });
+            movesLeft--;
+            updateMoves();
+
+            updateBoardUI();
+            handleMatches();
+          } else {
+            document.getElementById(`${selectedCandy.r}-${selectedCandy.c}`).classList.remove("selected");
+          }
+          selectedCandy = null;
+        } else {
+          document.getElementById(`${selectedCandy.r}-${selectedCandy.c}`).classList.remove("selected");
+          selectedCandy = { r, c };
+          clickedCandy.classList.add("selected");
+        }
+      }
+    }
+
+    function swap(pos1, pos2) {
+      const temp = board[pos1.r][pos1.c];
+      board[pos1.r][pos1.c] = board[pos2.r][pos2.c];
+      board[pos2.r][pos2.c] = temp;
+    }
+
+    function willSwapCreateMatch(pos1, pos2) {
+      swap(pos1, pos2);
+      const result = checkForAnyMatch();
+      swap(pos1, pos2);
+      return result;
+    }
+
+    function checkForAnyMatch() {
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          if (getMatchAt(r, c).length >= 3) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function getMatchAt(r, c) {
+      const candyType = board[r][c];
+      if (!candyType) return [];
+
+      let horizontalMatches = [{ r, c }];
+
+      for (let cc = c - 1; cc >= 0; cc--) {
+        if (board[r][cc] === candyType) horizontalMatches.push({ r, c: cc });
+        else break;
+      }
+
+      for (let cc = c + 1; cc < columns; cc++) {
+        if (board[r][cc] === candyType) horizontalMatches.push({ r, c: cc });
+        else break;
+      }
+
+      let verticalMatches = [{ r, c }];
+
+      for (let rr = r - 1; rr >= 0; rr--) {
+        if (board[rr][c] === candyType) verticalMatches.push({ r: rr, c });
+        else break;
+      }
+
+      for (let rr = r + 1; rr < rows; rr++) {
+        if (board[rr][c] === candyType) verticalMatches.push({ r: rr, c });
+        else break;
+      }
+
+      if (horizontalMatches.length >= 3) return horizontalMatches;
+      if (verticalMatches.length >= 3) return verticalMatches;
+
+      return [];
+    }
+
+    function handleMatches() {
+      let matchedPositions = new Set();
+      let foundMatch = false;
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          const match = getMatchAt(r, c);
+          if (match.length >= 3) {
+            foundMatch = true;
+            match.forEach(pos => {
+              matchedPositions.add(`${pos.r}-${pos.c}`);
+            });
+          }
+        }
+      }
+
+      if (!foundMatch) {
+        updateLeaderboardScore();
+        return;
+      }
+
+      matchedPositions.forEach(posStr => {
+        const [r, c] = posStr.split("-").map(Number);
+        board[r][c] = null;
+      });
+
+      score++;
+      updateLeaderboardScore();
+
+      collapseBoard();
+    }
+
+    function collapseBoard() {
+      for (let c = 0; c < columns; c++) {
+        let emptySpots = 0;
+        for (let r = rows - 1; r >= 0; r--) {
+          if (board[r][c] === null) {
+            emptySpots++;
+          } else if (emptySpots > 0) {
+            board[r + emptySpots][c] = board[r][c];
+            board[r][c] = null;
+          }
+        }
+
+        for (let r = 0; r < emptySpots; r++) {
+          board[r][c] = getRandomCandy();
+        }
+      }
+
+      updateBoardUI();
+
+      setTimeout(() => {
+        if (checkAndClearMatches()) {
+          collapseBoard();
+        } else {
+          updateLeaderboardScore();
+        }
+      }, 200);
+    }
+
+    function checkAndClearMatches() {
+      let foundMatch = false;
+      let matchedPositions = new Set();
+
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+          const match = getMatchAt(r, c);
+          if (match.length >= 3) {
+            foundMatch = true;
+            match.forEach(pos => {
+              matchedPositions.add(`${pos.r}-${pos.c}`);
+            });
+          }
+        }
+      }
+
+      if (!foundMatch) return false;
+
+      matchedPositions.forEach(posStr => {
+        const [r, c] = posStr.split("-").map(Number);
+        board[r][c] = null;
+      });
+
+      score++;
+      updateLeaderboardScore();
+
+      collapseBoard();
+      return true;
+    }
+
+    // --- Leaderboard update and save ---
+
+    function updateLeaderboardScore() {
+      playerEntry.score = score;
+      updateLeaderboardUI();
+      saveLeaderboard();
+      updateScoreDisplay(); // Päivitetään piilotettu pisteiden näyttö myös
+    }
+
+    function updateScoreDisplay() {
+      // Jos haluat näyttää pisteet jossain muualla, laita tänne
+      // Esim. päivitetään piilotettu piste-elementti (tällä hetkellä ei näytetä)
+      // document.getElementById("pisteet").innerText = score;
+    }
+
+    function updateLeaderboardUI() {
+      const tbody = document.getElementById("leaderboardBody");
+      tbody.innerHTML = "";
+
+      // Järjestä leaderboard pisteiden mukaan (laskevasti), ajan mukaan (pienin ensin)
+      leaderboard.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.time - b.time;
+      });
+
+      leaderboard.forEach(entry => {
+        const tr = document.createElement("tr");
+        if (entry.name === playerName) tr.classList.add("highlight");
+
+        const tdName = document.createElement("td");
+        tdName.textContent = entry.name;
+
+        const tdScore = document.createElement("td");
+        tdScore.textContent = entry.score;
+
+        const tdTime = document.createElement("td");
+        tdTime.textContent = entry.time > 0 ? entry.time : "-";
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdScore);
+        tr.appendChild(tdTime);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveLeaderboard() {
+      localStorage.setItem("candypaperLeaderboard", JSON.stringify(leaderboard));
+    }
+
+    function endGame() {
+      if (gameOver) return;
+      gameOver = true;
+      const endTime = new Date();
+      playerEntry.time = Math.round((endTime - startTime) / 1000);
+      updateLeaderboardUI();
+      saveLeaderboard();
+    }
+
+    // Tässä on refilleri, jota käytetään alustuksessa (tämä pitää lisätä, koska koodi kutsuu)
+    function refillBoard() {
+      for (let c = 0; c < columns; c++) {
+        for (let r = 0; r < rows; r++) {
+          if (board[r][c] === null) {
+            board[r][c] = getRandomCandy();
+          }
+        }
+      }
+      updateBoardUI();
+    }
+  </script>
+</body>
+</html>

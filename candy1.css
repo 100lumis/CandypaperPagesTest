@@ -1,0 +1,26 @@
+    <style>
+  body {
+  background-color: FFFFFF;
+background-image: url("makea.png"); 
+background-size: cover;
+
+    }
+.fairy {
+      position: absolute;
+      bottom: 360px;
+      left: 850px;
+      width: 120px; /* voit säätää */
+    }
+	  .basic-box {
+	  position: absolute;
+      bottom: 200px;
+      left: 400px;
+            width: 440px;
+            height: 200px;
+            border: 2px solid #000;
+            background-color: #f0f0f0;
+            padding: 10px;
+            color: green;
+        }
+  </style>
+  
