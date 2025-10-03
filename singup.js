@@ -1,7 +1,7 @@
 document.getElementById('signup').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // formidataaaa
+  // 
   const formData = new FormData(e.target);
   const user = formData.get('user').trim();
   const psw = formData.get('psw');
@@ -38,11 +38,13 @@ const app = express();
 
 app.use(express.json());
 
+
+//ongelma ehkä tossa.
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'youruser',
   password: 'yourpassword',
-  database: 'yourdb'
+  database: 'gamelogindb'
 });
 
 app.post('/signup', async (req, res) => {
