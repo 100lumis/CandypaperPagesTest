@@ -133,6 +133,29 @@
     <tbody id="leaderboardBody"></tbody>
   </table>
 
+	<script>
+  async function loadLeaderboard() {
+    const response = await fetch('leaderboard.json');
+    const data = await response.json();
+
+    const tbody = document.getElementById('leaderboardBody');
+    tbody.innerHTML = ''; // Clear existing rows
+
+    data.forEach(entry => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${entry.nimi}</td>
+        <td>${entry.pisteet}</td>
+        <td>${entry.aika}</td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  loadLeaderboard();
+</script>
+
+
   <script>
     const candies = ["yellow", "blue", "pink", "purple", "opgreen", "orange"];
     const rows = 9;
