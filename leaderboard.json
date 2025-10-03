@@ -1,3 +1,4 @@
-{ "nimi": "Alice", "pisteet": 1500, "aika": 45 },
- { "nimi": "Bob", "pisteet": 1200, "aika": 60 },
-  { "nimi": "Charlie", "pisteet": 950, "aika": 80 } ]
+{ "nimi": "Maija", "pisteet": 1500, "aika": 45 },
+ { "nimi": "Matti", "pisteet": 1200, "aika": 60 },
+
+  { "nimi": "John", "pisteet": 950, "aika": 80 } ]
