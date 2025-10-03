@@ -42,8 +42,8 @@ app.use(express.json());
 //ongelma ehkä tossa.
 const pool = mysql.createPool({
   host: 'localhost',
-  user: 'youruser',
-  password: 'yourpassword',
+  user: 'user',
+  password: 'password',
   database: 'gamelogindb'
 });
 
