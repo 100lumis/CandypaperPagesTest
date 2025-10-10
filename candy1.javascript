@@ -1,5 +1,3 @@
-kirjautumis sivu
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +17,10 @@ kirjautumis sivu
     $(document).ready(function(){
       bounce();
     });
+
+document.getElementById("loginMessage").textContent = "Kirjautuminen onnistui!";
   </script>
+
 
 
   </body>
