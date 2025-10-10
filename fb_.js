@@ -2,15 +2,16 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-// muuta.
+// tarvittavat
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBH9Eb9mRWeSx4ySuyasPf0cQ0I0JZdm2s",
+  authDomain: "candypaperdb-69758.firebaseapp.com",
+  projectId: "candypaperdb-69758",
+  storageBucket: "candypaperdb-69758.firebasestorage.app",
+  messagingSenderId: "805331025403",
+  appId: "1:805331025403:web:6bf883ad174a1886f49f5e"
 };
+
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
