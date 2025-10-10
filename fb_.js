@@ -44,6 +44,7 @@ if (loginForm) {
 
       alert("Kirjautuminen onnistui!");
       // window.location.href = "game.html"; // optional redirect
+window.location.href = "board.html";
       return;
 
     } catch (error) {
@@ -64,6 +65,8 @@ if (loginForm) {
         console.error("Login/Register failed:", error.message);
         alert("Virhe: " + error.message);
       }
+
+      
     }
   });
 }
