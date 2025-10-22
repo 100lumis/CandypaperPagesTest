@@ -15,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("login");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
