@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Kirjaudu</title>
@@ -10,30 +10,32 @@
 
   <div class="login">
     <h2>Kirjaudu</h2>
-    <form id="login">
-      <label for="user">Käyttäjänimi</label>
+    <form id="loginForm">
+      <label for="username">Käyttäjänimi</label>
       <input type="text" name="user" id="username" required>
 
-      <label for="psw">Salasana</label>
-      <input type="password" name="psw" id="password" required>
+      <div class="input-group">
+        <label for="password">Salasana</label>
+        <input type="password" name="psw" id="password" required>
+      </div>
 
       <button type="submit">Kirjaudu</button>
     </form>
   </div>
 
+  <!-- keiju kuva -->
   <div>
     <img src="fairy1.png" alt="keiju" class="fairy">
+    <div>
+      <img src="fairy1.png" alt="keiju" class="fairy">
+      Tiesitkö sen, että Hershey suklaapatukka on <br>
+      käynnyt avaruudessa? <br>
+      Sitä vietiin Apollo 15 mukana kuuhun <br>
+      vuonna 1971.
+    </div>
   </div>
 
-    <script type="module" src="fb_.js"></script>
-  <script type="module" src="candy1.js"></script>
-
-  <footer>
-    <a href="https://100lumis.github.io/CandypaperPagesTest/candy2.html">candy2</a>
-    <a href="https://100lumis.github.io/CandypaperPagesTest/candy3.html">candy3</a>
-    <a href="https://100lumis.github.io/CandypaperPagesTest/leaderboard.html">board</a>
-  </footer>
-
+  <!-- js -->
+  <script src="candy1.js"></script>
 </body>
 </html>
-
