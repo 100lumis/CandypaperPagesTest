@@ -30,11 +30,12 @@ if (loginForm) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
       const user = userCredential.user;
-      console.log("Logged in:", user.uid);
+      console.log("Kirjautunut:", user.uid);
 
       const userDocRef = doc(db, "players", user.uid);
       const userDocSnap = await getDoc(userDocRef);
 
+      // tarkista firebase LK....
       if (!userDocSnap.exists()) {
         await setDoc(userDocRef, {
           username: username,
