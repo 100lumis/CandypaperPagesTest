@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBH9Eb9mRWeSx4ySuyasPf0cQ0I0JZdm2s",
   authDomain: "candypaperdb-69758.firebaseapp.com",
@@ -15,11 +16,13 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const loginForm = document.getElementById("login");
+// domdomdomdom
+const loginForm = document.getElementById("loginForm");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // firebase vaatii spostin niin tämä on workaround? saatan muuttaa.
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
     const fakeEmail = username + "@mygame.com";
@@ -37,14 +40,13 @@ if (loginForm) {
           username: username,
           score: 0
         });
-        console.log("New player created!");
+        console.log("Rekisteröinti onnistunut!");
       } else {
-        console.log("Welcome back,", userDocSnap.data().username);
+        console.log("Hei taas,", userDocSnap.data().username);
       }
 
       alert("Kirjautuminen onnistui!");
-      // window.location.href = "game.html"; // optional redirect
-window.location.href = "board.html";
+      window.location.href = "candy2.html";
       return;
 
     } catch (error) {
@@ -58,15 +60,13 @@ window.location.href = "board.html";
         });
 
         alert("Uusi käyttäjä luotu ja kirjautunut!");
-        // window.location.href = "game.html"; // optional redirect
+        window.location.href = "board.html";
         return;
 
       } catch (error) {
-        console.error("Login/Register failed:", error.message);
+        console.error("Login/Register failed:", error);
         alert("Virhe: " + error.message);
       }
-
-      
     }
   });
 }
