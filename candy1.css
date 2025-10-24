@@ -30,10 +30,11 @@ body {
       width: 120px; 
     }
 /* laatikko kirjautumista varten */
-	     .basic-box {
-      position: absolute;
+	.basic-box {
+  position: absolute;
   bottom: 200px;
-  left: 400px;
+  left: 50%;
+  transform: translateX(-50%); /* center*/
   width: 440px;
   padding: 20px;
   border: 1px solid #000;
