@@ -8,19 +8,6 @@ body {
   height: 100%;
 }
 
-
-.login label,
-.login input {
-  display: block;
-  margin-bottom: 15px; 
-  font-family: sans-serif;
-}
-
-.login input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
 /* keijun koko ja sijainti */
 .fairy {
       position: absolute;
