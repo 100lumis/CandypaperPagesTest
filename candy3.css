@@ -1,4 +1,4 @@
-/* Background on whole page */
+
 body {
   font-family: Arial, sans-serif;
   color: black;
@@ -14,7 +14,7 @@ body {
   justify-content: flex-start;
   padding: 20px 0;
 }
-
+/* peli nappuloiden värit ja muut stylet */
 .rainbow-text {
   background-image: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
   color: transparent;
@@ -24,7 +24,7 @@ body {
   margin-bottom: 0.5rem;
   font-size: 3em;
 }
-
+/* peli areena */
 #gameArea {
   background-color: white;
   border: 5px solid #d1478e;
@@ -37,7 +37,7 @@ body {
   align-items: center;
 }
 
-
+/* laatikko pelille */
 #board {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
@@ -48,7 +48,7 @@ body {
   box-sizing: border-box;
 }
 
-
+/* karkkien style */
 .candy {
   width: 45px;
   height: 45px;

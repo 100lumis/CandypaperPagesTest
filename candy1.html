@@ -4,38 +4,30 @@
   <meta charset="UTF-8">
   <title>Kirjaudu</title>
   <link rel="stylesheet" href="candy1.css">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">  
+    <link rel="icon" type="image/x-icon" href="favicon.ico">  
 </head>
 <body>
-
+<!-- kirjautuminen käyttäjänimellä ja salasanalla... rekisteröinti samalla sivulla probably  -->
   <div class="login">
     <h2>Kirjaudu</h2>
-    <form id="loginForm">
-      <label for="username">Käyttäjänimi</label>
+    <form id="login">
+    <label for="username">Käyttäjänimi</label>
       <input type="text" name="user" id="username" required>
-
-      <div class="input-group">
         <label for="password">Salasana</label>
         <input type="password" name="psw" id="password" required>
-      </div>
-
+      <!-- kirjautumisnappi, vie pelisivulle? -->
       <button type="submit">Kirjaudu</button>
     </form>
   </div>
-
-  <!-- keiju kuva -->
+<!-- keijju kuva-->
   <div>
     <img src="fairy1.png" alt="keiju" class="fairy">
-    <div>
-      <img src="fairy1.png" alt="keiju" class="fairy">
-      Tiesitkö sen, että Hershey suklaapatukka on <br>
-      käynnyt avaruudessa? <br>
-      Sitä vietiin Apollo 15 mukana kuuhun <br>
-      vuonna 1971.
-    </div>
+    Tiesitkö sen, että Hershey suklaapatukka on <br>käynnyt avaruudessa? <br>Sitä vietiin Apollo 15 mukana kuuhun <br>vuonna 1971.
   </div>
-
-  <!-- js -->
+  <!-- js jquery animaatio-->
   <script src="candy1.js"></script>
+  <!-- firebase -->
+  <script type="module" src="fb-auth.js"></script>
 </body>
 </html>
+

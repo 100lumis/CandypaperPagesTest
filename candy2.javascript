@@ -1,4 +1,4 @@
-etusivu missä on vaikeustasot ja asetukset
+/* etusivu missä on vaikeustasot ja asetukset */
 
 <!DOCTYPE html>
 <html>
@@ -20,6 +20,7 @@ etusivu missä on vaikeustasot ja asetukset
   const audio = document.getElementById("backgroundAudio");
   const audioBtn = document.getElementById("audioControlBtn");
 
+/* musiikin aloittaminen ja pysäyttäminen */
   function toggleAudio() {
     if (audio.paused) {
       audio.play();

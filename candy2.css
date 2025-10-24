@@ -1,11 +1,8 @@
-<style>
-    body {
-
 background-color: FFFFFF;
 background-image: url("pink2.png");
 background-size: cover; 
     }
-
+/* napit */
 	 .button-container {
       display: flex;
       flex-direction: column;
@@ -34,7 +31,7 @@ background-size: cover;
     inset 2px 2px 3px rgb(255 255 255 / 0.6),
     inset -2px -2px 3px rgb(0 0 0 / 0.6);
 }
-
+/* napin värin vaihto kun hiiri on sen päällä */
 .styled:hover {
   background-color: salmon;
 }
@@ -44,6 +41,7 @@ background-size: cover;
     inset -2px -2px 3px rgb(255 255 255 / 0.6),
     inset 2px 2px 3px rgb(0 0 0 / 0.6);
 }
+/* laatikko jonka sisällä asetukset ovat */
 .settings-box {
       display: none;
       position: fixed;
@@ -72,7 +70,7 @@ background-size: cover;
       color: #888;
       cursor: pointer;
     }
-
+/* x merkin värin vaihto kun hiiri on sen yllä */
     .close-btn:hover {
       color: black;
     }
@@ -89,7 +87,7 @@ background-size: cover;
       z-index: 5;
     }
 
-    /* Play/Pause nappi */
+    /* Play/Pause nappi musiikkiin */
     #audioControlBtn {
       margin-top: 15px;
       padding: 10px 20px;
@@ -103,9 +101,7 @@ background-size: cover;
         inset 2px 2px 3px rgb(255 255 255 / 0.6),
         inset -2px -2px 3px rgb(0 0 0 / 0.6);
     }
-
+/* värin vaihto kun hiiri on napin päällä */
     #audioControlBtn:hover {
       background-color: salmon;
     }
-	
-</style>
