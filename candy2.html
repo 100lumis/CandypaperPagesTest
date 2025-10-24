@@ -1,4 +1,3 @@
-/* etusivu missä on vaikeustasot ja asetukset */
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +6,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">  
 </head>
  <body>
-/* napit eri vaikeus tasoihin */
+    <!--napit eri vaikeustasoihin-->
 <div class="button-container">
   <button class="favorite styled" type="button" onclick="window.location.href='Candypaper3.index'">Helppo</button>
   <button class="favorite styled" type="button" onclick="window.location.href='Candypaper.index'">Keskitaso</button>
@@ -15,14 +14,14 @@
   <button class="favorite styled" type="button" onclick="openSettings()">Asetukset</button>
 </div>
 
-/* Taustahimmennys */
+    <!--taustahimmennys-->
 <div class="overlay" id="overlay" onclick="closeSettings()"></div>
 
-/* Asetukset-laatikko */
+    <!--asetukset laatikko-->
 <div class="settings-box" id="settingsBox">
   <span class="close-btn" onclick="closeSettings()">&times;</span>
   <h2>Asetukset</h2>
-/* audio */
+ <!--audio -->
   <audio id="backgroundAudio" src="lofi.mp3" preload="auto"></audio>
   <button id="audioControlBtn" onclick="toggleAudio()">Soita musiikki</button>
   <button id="audioControlBtn" type="button" onclick="window.location.href='Candypaper4.index'">Palaute</button>
