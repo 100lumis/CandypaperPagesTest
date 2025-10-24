@@ -8,18 +8,21 @@
 </head>
 <body>
 <!-- kirjautuminen käyttäjänimellä ja salasanalla... rekisteröinti samalla sivulla probably  -->
-  <div class="login">
+
+<div class="basic-box">
+  <form id="loginForm" class="login">
     <h2>Kirjaudu</h2>
-    <form id="login">
+
     <label for="username">Käyttäjänimi</label>
-      <input type="text" name="user" id="username" required>
-      
-        <label for="password">Salasana</label>
-        <input type="password" name="psw" id="password" required>
-      <!-- kirjautumisnappi, vie pelisivulle? -->
-      <button type="submit">Kirjaudu</button>
-    </form>
-  </div>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Salasana</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Kirjaudu</button>
+  </form>
+</div>
+
 <!-- keijju kuva-->
   <div>
     <img src="fairy1.png" alt="keiju" class="fairy">
