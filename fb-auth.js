@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBH9Eb9mRWeSx4ySuyasPf0cQ0I0JZdm2s",
   authDomain: "candypaperdb-69758.firebaseapp.com",
   projectId: "candypaperdb-69758",
-  storageBucket: "candypaperdb-69758.firebasestorage.app",
+storageBucket: "candypaperdb-69758.appspot.com",
   messagingSenderId: "805331025403",
   appId: "1:805331025403:web:6bf883ad174a1886f49f5e"
 };
