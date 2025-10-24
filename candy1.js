@@ -7,5 +7,3 @@
     $(document).ready(function(){
       bounce();
     });
-
-document.getElementById("loginMessage").textContent = "Kirjautuminen onnistui!";
