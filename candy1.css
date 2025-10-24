@@ -1,6 +1,12 @@
-background-color: #FFFFFF;
-background-image: url("makea.png"); 
-background-size: cover;
+body {
+  background-color: #FFFFFF;
+  background-image: url("makea.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0; 
+  height: 100%;
+}
 
     }
 /* keijun koko ja sijainti */
