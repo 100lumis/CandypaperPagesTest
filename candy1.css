@@ -8,18 +8,6 @@ body {
   height: 100%;
 }
 
-/* laatikko kirjautumista varten */
-	     .basic-box {
-      position: absolute;
-      bottom: 200px;
-      left: 400px;
-      width: 440px;
-      height: 200px;
-      border: 1px solid #000;
-      background-color: #f0f0f0;
-      padding: 10px;
-      color: red;
-    }
 
 /* keijun koko ja sijainti */
 .fairy {
