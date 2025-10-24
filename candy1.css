@@ -8,6 +8,12 @@ body {
   height: 100%;
 }
 
+#loginForm label,
+#loginForm input {
+  display: block;
+  margin-bottom: 10px; /* space between fields */
+}
+
 /* keijun koko ja sijainti */
 .fairy {
       position: absolute;
