@@ -18,14 +18,14 @@ body {
 /* laatikko kirjautumista varten */
 	.basic-box {
   position: absolute;
-  bottom: 200px;
-  left: 50%;
-  transform: translateX(-50%); /* center*/
-  width: 440px;
-  padding: 20px;
-  border: 1px solid #000;
-  background-color: #f0f0f0;
-  box-sizing: border-box;
+      bottom: 200px;
+      left: 400px;
+      width: 440px;
+      height: 200px;
+      border: 1px solid #000;
+      background-color: #f0f0f0;
+      padding: 10px;
+      color: red;
 }
 
  /* Puhekupla */
